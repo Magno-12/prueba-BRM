@@ -60,4 +60,42 @@ router.put('/:id', userController.updateUserInfo);
  */
 router.delete('/:id', userController.deleteUser);
 
+/**
+ * @api {get} /users/:id/purchase-history Get Purchase History
+ * @apiName GetPurchaseHistory
+ * @apiGroup Users
+ *
+ * @apiParam {Number} id User ID.
+ *
+ * @apiSuccess {Object[]} history Purchase history of the user.
+ * @apiSuccess {Number} history.purchaseId Purchase ID.
+ * @apiSuccess {String} history.date Purchase date.
+ * @apiSuccess {Object[]} history.products Products purchased.
+ * @apiSuccess {Number} history.products.productId Product ID.
+ * @apiSuccess {String} history.products.productName Product name.
+ * @apiSuccess {Number} history.products.quantity Quantity purchased.
+ *
+ * @apiSuccessExample Success-Response:
+ *   HTTP/1.1 200 OK
+ *   [
+ *     {
+ *       "purchaseId": 1,
+ *       "date": "2023-11-01",
+ *       "products": [
+ *         {
+ *           "productId": 1,
+ *           "productName": "Product 1",
+ *           "quantity": 3
+ *         },
+ *         {
+ *           "productId": 2,
+ *           "productName": "Product 2",
+ *           "quantity": 2
+ *         }
+ *       ]
+ *     }
+ *   ]
+ */
+router.get('/:id/purchase-history', userController.getPurchaseHistory);
+
 module.exports = router;

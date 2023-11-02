@@ -1,5 +1,6 @@
-const Product = require('../models/product');
 const Purchase = require('../models/purchase');
+const Product = require('../models/product');
+const User = require('../models/user');
 
 async function createPurchase(purchaseData, userId) {
   try {
@@ -42,6 +43,31 @@ async function createPurchase(purchaseData, userId) {
   }
 }
 
+async function listPurchases() {
+  try {
+    const purchases = await Purchase.findAll({
+      include: [
+        {
+          model: User,
+          as: 'customer',
+          attributes: ['id', 'username', 'email', 'role'],
+        },
+        {
+          model: Product,
+          as: 'products',
+          attributes: ['id', 'name', 'price'],
+          through: { attributes: ['quantity', 'price'] },
+        },
+      ],
+    });
+
+    return purchases;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createPurchase,
+  listPurchases,
 };

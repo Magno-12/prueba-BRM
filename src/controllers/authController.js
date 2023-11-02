@@ -31,7 +31,11 @@ const authService = require('../services/authService');
 exports.register = async (req, res) => {
   try {
     const userData = req.body;
-    const newUser = await authService.registerUser(userData);
+    const role = userData.role || 'client';
+    if (role !== 'admin' && role !== 'client') {
+      return res.status(400).json({ error: 'Invalid role' });
+    }
+    const newUser = await authService.registerUser({ ...userData, role });
     res.status(201).json({ user: newUser });
   } catch (error) {
     console.error(error);

@@ -1,4 +1,5 @@
 const productService = require('../services/productService');
+const { getUserRole } = require('../services/authService');
 
 /**
  * @api {get} /products List Products
@@ -22,6 +23,12 @@ exports.getAllProducts = async (req, res) => {
  */
 exports.createProduct = async (req, res) => {
   try {
+    const userRole = getUserRole(req);
+
+    if (userRole !== 'admin') {
+      return res.status(403).json({ error: 'Permission denied' });
+    }
+
     const productData = req.body;
     const newProduct = await productService.createProduct(productData);
     res.status(201).json(newProduct);
@@ -38,6 +45,12 @@ exports.createProduct = async (req, res) => {
  */
 exports.updateProduct = async (req, res) => {
   try {
+    const userRole = getUserRole(req);
+
+    if (userRole !== 'admin') {
+      return res.status(403).json({ error: 'Permission denied' });
+    }
+
     const productId = req.params.id;
     const updatedData = req.body;
     const message = await productService.updateProduct(productId, updatedData);
@@ -55,6 +68,11 @@ exports.updateProduct = async (req, res) => {
  */
 exports.deleteProduct = async (req, res) => {
   try {
+    const userRole = getUserRole(req);
+    if (userRole !== 'admin') {
+      return res.status(403).json({ error: 'Permission denied' });
+    }
+
     const productId = req.params.id;
     await productService.deleteProduct(productId);
     res.status(204).send();
