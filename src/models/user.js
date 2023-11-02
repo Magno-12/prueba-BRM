@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../config/database');
+const { v4: uuidv4 } = require('uuid');
 
 const UserRoles = {
         ADMIN: 'admin',
@@ -10,6 +11,11 @@ class User extends Model {}
 
 User.init(
   {
+    id: {
+      type: DataTypes.CHAR(36),
+      defaultValue: () => uuidv4(),
+      primaryKey: true,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
