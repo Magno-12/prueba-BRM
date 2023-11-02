@@ -1,5 +1,8 @@
-const sequelize = require('./config/database');
-const models = require('./models');
+const sequelize = require('./database');
+const Product = require('../src/models/product');
+const Purchase = require('../src/models/purchase');
+const User = require('../src/models/user');
+
 
 async function syncDatabase() {
   try {

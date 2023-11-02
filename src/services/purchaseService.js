@@ -1,5 +1,5 @@
-const Product = require('../models/Product');
-const Purchase = require('../models/Purchase');
+const Product = require('../models/product');
+const Purchase = require('../models/purchase');
 
 async function createPurchase(purchaseData, userId) {
   try {
