@@ -1,20 +1,20 @@
-const Purchase = require('../models/purchase');
+const Purchase = require('.../models/purchase');
 
 exports.createPurchase = async (req, res) => {
         try {
           const purchaseData = req.body;
 
           if (!purchaseData.products || !Array.isArray(purchaseData.products) || purchaseData.products.length === 0) {
-            return res.status(400).json({ error: 'La compra debe incluir al menos un producto' });
+            return res.status(400).json({ error: 'The purchase must include at least one product' });
           }
 
           for (const productData of purchaseData.products) {
             const product = await Product.findByPk(productData.productId);
             if (!product) {
-              return res.status(400).json({ error: `Producto con ID ${productData.productId} no encontrado` });
+              return res.status(400).json({ error: `Product with ID ${productData.productId} not found` });
             }
             if (productData.quantity > product.quantityAvailable) {
-              return res.status(400).json({ error: `Cantidad insuficiente de ${product.name}` });
+              return res.status(400).json({ error: `Insufficient quantity of ${product.name}` });
             }
           }
           const purchaseInfo = {
@@ -38,9 +38,9 @@ exports.createPurchase = async (req, res) => {
             await product.save();
           }
 
-          return res.status(201).json({ message: 'Compra registrada con éxito' });
+          return res.status(201).json({ message: 'Purchase successfully registered' });
         } catch (error) {
           console.error(error);
-          return res.status(500).json({ error: 'Error al registrar la compra' });
+          return res.status(500).json({ error: 'Error registering purchase' });
         }
       };
