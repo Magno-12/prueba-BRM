@@ -12,7 +12,7 @@ async function getAllProducts() {
 async function createProduct(productData) {
   try {
     if (!productData.lotNumber || !productData.name || !productData.price || !productData.quantityAvailable) {
-      throw new Error('Todos los campos son obligatorios');
+      throw new Error('All fields are required');
     }
 
     const newProduct = await Product.create(productData);
@@ -27,11 +27,11 @@ async function updateProduct(productId, updatedData) {
     const product = await Product.findByPk(productId);
 
     if (!product) {
-      throw new Error('Producto no encontrado');
+      throw new Error('Product not found');
     }
 
     if (!updatedData.lotNumber || !updatedData.name || !updatedData.price || !updatedData.quantityAvailable) {
-      throw new Error('Todos los campos son obligatorios');
+      throw new Error('All fields are required');
     }
 
     await product.update(updatedData);
@@ -46,7 +46,7 @@ async function deleteProduct(productId) {
     const product = await Product.findByPk(productId);
 
     if (!product) {
-      throw new Error('Producto no encontrado');
+      throw new Error('Product not found');
     }
 
     await product.destroy();
