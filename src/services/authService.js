@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { SECRET_KEY } = require('../config');
+require('dotenv').config();
 
 async function registerUser(userData) {
   try {
@@ -20,7 +20,7 @@ async function registerUser(userData) {
       username: userData.username,
       email: userData.email,
       password: hashedPassword,
-      role: userData.role || 'client', // Asigna un rol predeterminado si no se proporciona
+      role: userData.role || 'client',
     });
 
     return newUser;
@@ -47,7 +47,7 @@ async function loginUser(email, password) {
       throw new Error('Invalid credentials');
     }
 
-    const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
+    const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, {
       expiresIn: '1h',
     });
 
