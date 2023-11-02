@@ -1,6 +1,6 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const userController = require("../controllers/userController");
+const userController = require('../controllers/userController');
 
 /**
  * @api {get} /users/:id Get User Information
@@ -24,7 +24,7 @@ const userController = require("../controllers/userController");
  *     "role": "client"
  *   }
  */
-router.get("/:id", userController.getUserInfo);
+router.get('/:id', userController.getUserInfo);
 
 /**
  * @api {put} /users/:id Update User Information
@@ -32,7 +32,6 @@ router.get("/:id", userController.getUserInfo);
  * @apiGroup Users
  *
  * @apiParam {Number} id User ID.
- *
  * @apiParam {String} username New username for the user.
  * @apiParam {String} email New email for the user.
  * @apiParam {String} role New role for the user (admin or client).
@@ -45,7 +44,7 @@ router.get("/:id", userController.getUserInfo);
  *     "message": "User information updated successfully"
  *   }
  */
-router.put("/:id", userController.updateUserInfo);
+router.put('/:id', userController.updateUserInfo);
 
 /**
  * @api {delete} /users/:id Delete User
@@ -59,6 +58,6 @@ router.put("/:id", userController.updateUserInfo);
  * @apiSuccessExample Success-Response:
  *   HTTP/1.1 204 No Content
  */
-router.delete("/:id", userController.deleteUser);
+router.delete('/:id', userController.deleteUser);
 
 module.exports = router;
