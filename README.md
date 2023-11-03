@@ -197,3 +197,4 @@ Below are the available endpoints and how to use them:
 ### Recommendations:
 - The use of the Postman tool is recommended for endpoint testing. You can download Postman from https://www.postman.com/downloads/.
 - Make sure to correctly set the environment variables in the .env file, especially the MySQL online database connection string. You will not need to run the "node config/sync-db.js" command if you use an online database.
+- for apidoc you just need to open the index.html
